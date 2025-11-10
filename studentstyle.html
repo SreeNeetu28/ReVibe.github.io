@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Style Collection - ReVibe</title>
+    <link rel="icon" type="image/x-icon" href="photo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: { 100: '#e8f5e9', 300: '#a5d6a7', 500: '#66bb6a', 700: '#43a047', 900: '#2e7d32' },
+                        earth: { 100: '#efebe9', 300: '#bcaaa4', 500: '#8d6e63', 700: '#6d4c41', 900: '#4e342e' },
+                        cream: '#fff8f0'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #f4f4f4; color: #333; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
+        .slideshow-frame { height: 500px; }
+        .product-image { height: 300px; object-fit: cover; }
+    </style>
+</head>
+<body>
+
+    <nav class="bg-cream shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index1.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+                </div>
+                <span class="font-bold text-xl text-sage-700">ReVibe</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index1.html" class="font-medium hover:text-sage-700 transition">HOME</a>
+                <a href="menstyle.html" class="font-medium hover:text-sage-700 transition">MEN</a>
+                <a href="womenstyle.html" class="font-medium hover:text-sage-700 transition">WOMEN</a>
+                <a href="studentstyle.html" class="font-medium text-sage-700 border-b-2 border-sage-700 transition">STUDENT</a>
+                <a href="kidstyle.html" class="font-medium hover:text-sage-700 transition">KIDS</a>
+                <a href="customize.html" class="font-medium hover:text-sage-700 transition">CUSTOMIZE</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="wishlist.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Wishlist"><i data-feather="heart"></i></a>
+                <a href="cart.html" class="p-2 rounded-full hover:bg-sage-100 transition relative" aria-label="Cart">
+                    <i data-feather="shopping-cart"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                </a>
+                <a href="login.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Profile"><i data-feather="user"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <section class="slideshow-frame relative bg-gray-800 rounded-lg overflow-hidden mb-8">
+            <img class="w-full h-full object-cover" src="Student-pics/s1.jpg" alt="Featured Product Slideshow">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-8">
+                <div class="text-white">
+                    <h2 class="text-4xl font-bold">Formal Shirt</h2>
+                    <p class="mt-2 text-lg">New Arrival: 10 - 30% Off</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-center text-3xl font-bold mb-8 text-earth-800">More To Explore</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Product: Over-Sized shirt -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300">
+                    <a href="productdetail.html?name=Over-Sized%20Shirt&desc=Relaxed%20fit%20for%20ultimate%20campus%20comfort.&price=499&image=Student-pics/s2.jpg">
+                        <img class="product-image w-full" src="Student-pics/s2.jpg" alt="Over-Sized shirt">
+                    </a>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold">Over-Sized Shirt</h3>
+                        <p class="text-sm text-gray-600 my-2">Relaxed fit for ultimate campus comfort.</p>
+                        <p class="font-bold text-xl text-sage-700 mb-4">₹499</p>
+                        <a href="productdetail.html?name=Over-Sized%20Shirt&desc=Relaxed%20fit%20for%20ultimate%20campus%20comfort.&price=499&image=Student-pics/s2.jpg" class="inline-block bg-sage-100 text-sage-800 hover:bg-sage-200 px-6 py-2 rounded-full font-semibold transition">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Product: Hoodies -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300">
+                    <a href="productdetail.html?name=Hoodies&desc=A%20must-have%20for%20late-night%20study%20sessions.&price=899&image=Student-pics/s3.jpg">
+                        <img class="product-image w-full" src="Student-pics/s3.jpg" alt="Hoodies">
+                    </a>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold">Hoodies</h3>
+                        <p class="text-sm text-gray-600 my-2">A must-have for late-night study sessions.</p>
+                        <p class="font-bold text-xl text-sage-700 mb-4">₹899</p>
+                        <a href="productdetail.html?name=Hoodies&desc=A%20must-have%20for%20late-night%20study%20sessions.&price=899&image=Student-pics/s3.jpg" class="inline-block bg-sage-100 text-sage-800 hover:bg-sage-200 px-6 py-2 rounded-full font-semibold transition">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Product: Floral Print top -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300">
+                    <a href="productdetail.html?name=Floral%20Print%20Top&desc=Fresh%20and%20vibrant%20to%20brighten%20your%20day.&price=999&image=Student-pics/s4.jpg">
+                        <img class="product-image w-full" src="Student-pics/s4.jpg" alt="Floral Print Top">
+                    </a>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-semibold">Floral Print Top</h3>
+                        <p class="text-sm text-gray-600 my-2">Fresh and vibrant to brighten your day.</p>
+                        <p class="font-bold text-xl text-sage-700 mb-4">₹999</p>
+                        <a href="productdetail.html?name=Floral%20Print%20Top&desc=Fresh%20and%20vibrant%20to%20brighten%20your%20day.&price=999&image=Student-pics/s4.jpg" class="inline-block bg-sage-100 text-sage-800 hover:bg-sage-200 px-6 py-2 rounded-full font-semibold transition">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        feather.replace();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart badge on page load
+            const cartBadge = document.getElementById('cart-badge');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartBadge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        });
+    </script>
+</body>
+</html>
+

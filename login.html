@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="loginstyle.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet"
+  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monomakh&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    
+    <nav class="bg-[#fff8f0] shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center" style="max-width: 1200px;">
+            <a href="index1.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img class="h-full w-full object-cover" src="photo.jpg" alt="ReVibe Logo">
+                </div>
+                <span class="font-bold text-xl text-green-700">ReVibe</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index1.html" class="font-medium hover:text-green-700 transition">HOME</a>
+                <a href="menstyle.html" class="font-medium hover:text-green-700 transition">MEN</a>
+                <a href="womenstyle.html" class="font-medium hover:text-green-700 transition">WOMEN</a>
+                <a href="studentstyle.html" class="font-medium hover:text-green-700 transition">STUDENT</a>
+                <a href="kidstyle.html" class="font-medium hover:text-green-700 transition">KIDS</a>
+                <a href="customize.html" class="font-medium hover:text-green-700 transition">CUSTOMIZE</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative group">
+                    <button class="p-2 rounded-full hover:bg-green-100 transition">
+                        <i data-feather="user"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                        <a href="login.html" class="block px-4 py-2 text-sm hover:bg-green-100">Login</a>
+                        <a href="registration.html" class="block px-4 py-2 text-sm hover:bg-green-100">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script>feather.replace()</script>
+
+<div class="background"></div>
+    <div class="container">
+           <div class="content">
+            <h2 class="logo" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"><i class='bx bxl-firebase'></i>ReVibe</h2>
+           
+            <div class="text-sci">
+                <h3>Welcome!<br>To our exclusive online store.</h3>
+                <p>Sustainable Fashion for all!!</p>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-linkedin' ></i></a>
+                    <a href="#"><i class='bx bxl-facebook' ></i></a>
+                    <a href="#"><i class='bx bxl-instagram' ></i></a>
+                    <a href="#"><i class='bx bxl-twitter' ></i></a>
+                </div>
+            </div>
+           </div>
+           <div class="logreg-box">
+            <div class="form-box login">
+                <form action="#">
+                    <h2>Sign In</h2>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-envelope'></i></span>
+                        <input type="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="remember-forgot">
+                        <label>
+                            <input type="checkbox">Remember me
+                        </label>
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <div class="signup-container">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="customer" onclick="toggleCheckbox('customer')"> I am a Customer
+                            </label>
+                        </div>
+                    </div>
+    
+                    <button type="submit" class="btn">Sign In</button>
+                
+                    <div class="login-register">
+                        <p>Don't have an account?
+                            <a href="registration.html" class="register-link">Sign Up</a>
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+           </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

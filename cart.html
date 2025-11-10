@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - ReVibe</title>
+    <link rel="icon" type="image/x-icon" href="photo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: { 100: '#e8f5e9', 300: '#a5d6a7', 500: '#66bb6a', 700: '#43a047', 900: '#2e7d32' },
+                        earth: { 100: '#efebe9', 300: '#bcaaa4', 500: '#8d6e63', 700: '#6d4c41', 900: '#4e342e' },
+                        cream: '#fff8f0'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #f4f4f4; }
+    </style>
+</head>
+<body class="text-earth-900">
+    <!-- Navigation -->
+    <nav class="bg-cream shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+             <a href="index1.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+                </div>
+                <span class="font-bold text-xl text-sage-700">ReVibe</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index1.html" class="font-medium hover:text-sage-700 transition">HOME</a>
+                <a href="menstyle.html" class="font-medium hover:text-sage-700 transition">MEN</a>
+                <a href="womenstyle.html" class="font-medium hover:text-sage-700 transition">WOMEN</a>
+                <a href="studentstyle.html" class="font-medium hover:text-sage-700 transition">STUDENT</a>
+                <a href="kidstyle.html" class="font-medium hover:text-sage-700 transition">KIDS</a>
+                <a href="customize.html" class="font-medium hover:text-sage-700 transition">CUSTOMIZE</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="wishlist.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Wishlist"><i data-feather="heart"></i></a>
+                <a href="cart.html" class="p-2 rounded-full bg-sage-100 transition relative" aria-label="Cart">
+                    <i data-feather="shopping-cart" class="text-sage-700"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                </a>
+                <a href="login.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Profile"><i data-feather="user"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-sage-800">Your Shopping Cart</h1>
+            <p class="text-earth-700 mt-2">Review your items and proceed to checkout.</p>
+        </div>
+
+        <div id="cart-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div id="cart-items-container" class="lg:col-span-2 space-y-6">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg h-fit">
+                <h2 class="text-2xl font-bold border-b pb-4">Order Summary</h2>
+                <div class="mt-4 space-y-2">
+                    <div class="flex justify-between">
+                        <span>Subtotal</span>
+                        <span id="subtotal">₹0</span>
+                    </div>
+                     <div class="flex justify-between">
+                        <span>Shipping</span>
+                        <span id="shipping-cost">₹0</span>
+                    </div>
+                     <div class="flex justify-between font-bold text-lg border-t pt-2 mt-2">
+                        <span>Total</span>
+                        <span id="total">₹0</span>
+                    </div>
+                </div>
+                 <button id="buy-selected-btn" class="w-full text-center mt-6 bg-sage-700 text-white hover:bg-sage-800 py-3 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    Proceed to Shipping
+                </button>
+            </div>
+        </div>
+        
+        <div id="empty-cart-message" class="hidden text-center py-16">
+            <i data-feather="shopping-cart" class="w-16 h-16 mx-auto text-sage-300"></i>
+            <h2 class="mt-4 text-2xl font-semibold text-earth-700">Your cart is empty</h2>
+            <p class="mt-2 text-earth-500">Looks like you haven't added any items yet.</p>
+            <a href="index1.html" class="mt-6 inline-block bg-sage-700 text-white hover:bg-sage-800 px-6 py-3 rounded-full font-semibold transition">Start Shopping</a>
+        </div>
+    </main>
+
+    <script>
+        feather.replace();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('subtotal');
+            const totalEl = document.getElementById('total');
+            const shippingEl = document.getElementById('shipping-cost');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartContent = document.getElementById('cart-content');
+            const cartBadge = document.getElementById('cart-badge');
+            const buySelectedBtn = document.getElementById('buy-selected-btn');
+            const SHIPPING_COST = 50;
+
+            function renderCart() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartItemsContainer.innerHTML = '';
+                if (cart.length > 0) {
+                    cart.forEach(item => {
+                        const itemEl = document.createElement('div');
+                        itemEl.className = 'cart-item flex items-center bg-white p-4 rounded-lg shadow-md';
+                        itemEl.dataset.id = item.id;
+                        itemEl.dataset.price = item.price;
+                        
+                        const productUrl = `productdetail.html?name=${encodeURIComponent(item.name)}&desc=${encodeURIComponent(item.desc)}&price=${item.price}&image=${encodeURIComponent(item.image)}`;
+
+                        itemEl.innerHTML = `
+                            <input type="checkbox" class="item-checkbox h-5 w-5 rounded border-gray-300 text-sage-700 focus:ring-sage-500 mr-4 flex-shrink-0" checked>
+                            <a href="${productUrl}" class="flex-shrink-0">
+                                <img src="${item.image}" alt="${item.name}" class="w-24 h-24 rounded-md object-cover">
+                            </a>
+                            <div class="flex-grow ml-4">
+                                <a href="${productUrl}">
+                                    <h3 class="font-bold hover:underline">${item.name}</h3>
+                                </a>
+                                <p class="text-sm text-earth-500">${item.desc}</p>
+                                <span class="text-sage-700 font-bold">₹${item.price}</span>
+                            </div>
+                            <div class="flex items-center flex-shrink-0">
+                                <button class="quantity-btn p-1" data-action="decrease">-</button>
+                                <span class="quantity mx-2">${item.quantity}</span>
+                                <button class="quantity-btn p-1" data-action="increase">+</button>
+                            </div>
+                            <button class="remove-item-btn ml-6 text-red-500 hover:text-red-700 flex-shrink-0"><i data-feather="trash-2"></i></button>
+                        `;
+                        cartItemsContainer.appendChild(itemEl);
+                    });
+                    feather.replace();
+                }
+                updateTotals();
+            }
+
+            function updateTotals() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let subtotal = 0;
+                let totalItems = 0;
+                let hasSelectedItems = false;
+
+                cart.forEach(item => {
+                    totalItems += item.quantity;
+                    const itemEl = cartItemsContainer.querySelector(`.cart-item[data-id="${item.id}"]`);
+                    if (itemEl && itemEl.querySelector('.item-checkbox').checked) {
+                        subtotal += item.price * item.quantity;
+                        hasSelectedItems = true;
+                    }
+                });
+                
+                const shipping = hasSelectedItems ? SHIPPING_COST : 0;
+                const total = subtotal + shipping;
+
+                subtotalEl.textContent = `₹${subtotal.toFixed(2)}`;
+                shippingEl.textContent = `₹${shipping.toFixed(2)}`;
+                totalEl.textContent = `₹${total.toFixed(2)}`;
+                cartBadge.textContent = totalItems;
+                buySelectedBtn.disabled = !hasSelectedItems;
+
+                if (cart.length === 0) {
+                    cartContent.classList.add('hidden');
+                    emptyCartMessage.classList.remove('hidden');
+                } else {
+                    cartContent.classList.remove('hidden');
+                    emptyCartMessage.classList.add('hidden');
+                }
+            }
+
+            cartItemsContainer.addEventListener('click', e => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const itemEl = e.target.closest('.cart-item');
+                if (!itemEl) return;
+                const itemId = itemEl.dataset.id;
+                const itemIndex = cart.findIndex(i => i.id === itemId);
+
+                if (e.target.closest('.quantity-btn')) {
+                    const action = e.target.closest('.quantity-btn').dataset.action;
+                    if (action === 'increase') {
+                        cart[itemIndex].quantity++;
+                    } else if (action === 'decrease' && cart[itemIndex].quantity > 1) {
+                        cart[itemIndex].quantity--;
+                    }
+                }
+
+                if (e.target.closest('.remove-item-btn')) {
+                    cart.splice(itemIndex, 1);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            });
+
+            cartItemsContainer.addEventListener('change', e => {
+                if (e.target.classList.contains('item-checkbox')) {
+                    updateTotals();
+                }
+            });
+
+            buySelectedBtn.addEventListener('click', () => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const selectedItems = [];
+                cart.forEach(item => {
+                     const itemEl = cartItemsContainer.querySelector(`.cart-item[data-id="${item.id}"]`);
+                    if (itemEl && itemEl.querySelector('.item-checkbox').checked) {
+                        selectedItems.push(item);
+                    }
+                });
+
+                if (selectedItems.length > 0) {
+                    localStorage.setItem('orderItems', JSON.stringify(selectedItems));
+                    window.location.href = 'shipping.html';
+                }
+            });
+
+            renderCart();
+        });
+    </script>
+</body>
+</html>
+

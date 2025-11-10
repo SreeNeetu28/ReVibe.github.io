@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReVibe - Customizer</title>
+  <link rel="icon" type="image/x-icon" href="photo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <!-- Fabric.js library for advanced canvas control -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sage: { 100: '#e8f5e9', 300: '#a5d6a7', 500: '#66bb6a', 700: '#43a047', 900: '#2e7d32' },
+            earth: { 100: '#efebe9', 300: '#bcaaa4', 500: '#8d6e63', 700: '#6d4c41', 900: '#4e342e' },
+            cream: '#fff8f0'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Roboto+Mono&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff8f0;
+      color: #4e342e;
+    }
+    .canvas-container {
+      border: none; /* Border removed as requested */
+      border-radius: 0.5rem;
+    }
+    .tool-btn.active {
+      background-color: #43a047; /* sage-700 */
+      color: white;
+    }
+    .tool-btn.active i, .tool-btn.active svg {
+        color: white !important;
+    }
+    .modal { transition: opacity 0.25s ease; }
+    .modal-content { transition: transform 0.25s ease; }
+  </style>
+</head>
+
+<body class="text-earth-900">
+
+  <nav class="bg-cream shadow-md sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+          <a href="index1.html" class="flex items-center space-x-2">
+              <div class="w-10 h-10 rounded-full overflow-hidden">
+                  <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+              </div>
+              <span class="font-bold text-xl text-sage-700">ReVibe</span>
+          </a>
+          <div class="hidden md:flex space-x-8">
+              <a href="index1.html" class="font-medium hover:text-sage-700 transition">HOME</a>
+              <a href="menstyle.html" class="font-medium hover:text-sage-700 transition">MEN</a>
+              <a href="womenstyle.html" class="font-medium hover:text-sage-700 transition">WOMEN</a>
+              <a href="studentstyle.html" class="font-medium hover:text-sage-700 transition">STUDENT</a>
+              <a href="kidstyle.html" class="font-medium hover:text-sage-700 transition">KIDS</a>
+              <a href="customize.html" class="font-medium text-sage-700 border-b-2 border-sage-700 transition">CUSTOMIZE</a>
+          </div>
+          <div class="flex items-center space-x-4">
+              <a href="wishlist.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Wishlist"><i data-feather="heart"></i></a>
+              <a href="cart.html" class="p-2 rounded-full hover:bg-sage-100 transition relative" aria-label="Cart">
+                  <i data-feather="shopping-cart"></i>
+                  <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+              </a>
+              <a href="login.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Profile"><i data-feather="user"></i></a>
+          </div>
+      </div>
+  </nav>
+
+  <section id="customize" class="py-12 px-4">
+    <div class="container mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-4xl font-bold text-sage-800 mb-4">Unleash Your Creativity</h2>
+        <p class="text-earth-700 max-w-2xl mx-auto">
+          Design your own apparel. Pick a garment, add drawings, text, or images, and make it uniquely yours.
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 bg-white p-8 rounded-xl shadow-lg">
+        <!-- Controls -->
+        <div class="lg:w-1/3 space-y-6">
+            <div>
+                <label for="garment-type" class="block font-bold text-sage-800">1. Select Garment</label>
+                <select id="garment-type" class="mt-1 block w-full border border-sage-200 rounded-md py-2 px-3 focus:ring-sage-300 focus:border-sage-300">
+                    <option value="T-shirt">T-shirt</option>
+                    <option value="Oversized T-shirt">Oversized T-shirt</option>
+                    <option value="Shirt">Shirt</option>
+                    <option value="Hoodie">Hoodie</option>
+                    <option value="Jeans">Jeans</option>
+                    <option value="Kurta Set">Kurta Set</option>
+                    <option value="Saree">Saree</option>
+                    <option value="Tote Bag">Tote Bag</option>
+                </select>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-sage-800">2. Choose Your Tool</h3>
+                <div class="grid grid-cols-3 gap-2 mt-2">
+                    <button id="tool-draw" class="tool-btn active flex flex-col items-center p-2 border rounded-lg"><i data-feather="edit-3" class="mb-1"></i>Draw</button>
+                    <button id="tool-text" class="tool-btn flex flex-col items-center p-2 border rounded-lg"><i data-feather="type" class="mb-1"></i>Text</button>
+                    <button id="tool-image" class="tool-btn flex flex-col items-center p-2 border rounded-lg"><i data-feather="image" class="mb-1"></i>Image</button>
+                </div>
+            </div>
+
+            <div id="draw-controls">
+                <label class="block text-sm font-medium">Brush Color</label>
+                <input type="color" id="color-picker" value="#43a047" class="w-full h-10 p-1 border rounded-md">
+                <label for="brush-size" class="block text-sm mt-3">Brush Size: <span id="brush-size-value">10</span>px</label>
+                <input type="range" id="brush-size" min="1" max="50" value="10" class="w-full">
+            </div>
+            
+            <div id="text-controls" class="hidden space-y-3">
+                <input type="text" id="text-input" placeholder="Enter your text" class="w-full border border-sage-200 rounded-md py-2 px-3">
+                <select id="font-family" class="w-full border border-sage-200 rounded-md py-2 px-3">
+                    <option value="Poppins">Poppins</option>
+                    <option value="Lobster">Lobster</option>
+                    <option value="Pacifico">Pacifico</option>
+                    <option value="Roboto Mono">Roboto Mono</option>
+                </select>
+                <input type="color" id="text-color" value="#333333" class="w-full h-10 p-1 border rounded-md">
+                <button id="add-text-btn" class="w-full bg-sage-500 text-white py-2 rounded-lg font-semibold">Add Text</button>
+            </div>
+
+            <div id="image-controls" class="hidden">
+                 <input id="file-upload" type="file" accept="image/png, image/jpeg" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sage-50 file:text-sage-700 hover:file:bg-sage-100"/>
+            </div>
+             
+            <div>
+                <label for="quantity" class="block font-bold text-sage-800">3. Set Quantity</label>
+                <input type="number" id="quantity" value="1" min="1" class="mt-1 w-full border border-sage-200 rounded-md py-2 px-3">
+            </div>
+
+            <div class="pt-4 border-t border-sage-100 space-y-3">
+                <button id="add-to-cart-btn" class="w-full bg-sage-100 text-sage-800 hover:bg-sage-200 py-3 rounded-lg font-semibold">Add to Cart</button>
+                <button id="place-order-btn" class="w-full bg-sage-700 hover:bg-sage-800 text-white py-3 rounded-lg font-semibold">Place Order</button>
+                <button id="clear-canvas" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg font-medium">Clear All Objects</button>
+            </div>
+        </div>
+
+        <div class="lg:w-2/3 text-center">
+            <h3 class="font-bold text-xl mb-4 text-sage-800">Design on Your <span id="canvas-garment-name">T-shirt</span></h3>
+            <div class="relative w-full max-w-lg aspect-square mx-auto bg-white shadow-inner rounded-lg">
+                <canvas id="customize-canvas"></canvas>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div id="confirmation-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+    <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md p-8 transform scale-95 relative text-center">
+      <button id="close-confirmation-modal" class="absolute top-2 right-4 text-2xl text-gray-400 hover:text-gray-600">&times;</button>
+      <div id="modal-icon" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4"></div>
+      <h3 id="modal-title" class="text-lg font-semibold text-sage-800 mb-2"></h3>
+      <p id="confirmation-message" class="text-sm text-earth-700 mb-4"></p>
+      <button id="ok-confirmation-modal" class="bg-sage-700 hover:bg-sage-800 text-white px-6 py-2 rounded-md font-medium">OK</button>
+    </div>
+  </div>
+
+
+  <footer class="bg-sage-900 text-white py-8">
+    <div class="container mx-auto text-center text-sage-300 text-sm">
+      © 2025 ReVibe Sustainable Fashion — Crafted Sustainably with Love 🌿
+    </div>
+  </footer>
+
+  <script>feather.replace();</script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartBadge = document.getElementById('cart-badge');
+        
+        const canvasWrapper = document.querySelector('.aspect-square');
+        const canvasEl = document.getElementById('customize-canvas');
+        canvasEl.width = canvasWrapper.clientWidth;
+        canvasEl.height = canvasWrapper.clientHeight;
+        const canvas = new fabric.Canvas('customize-canvas');
+        
+        const garmentType = document.getElementById('garment-type');
+        const garmentName = document.getElementById('canvas-garment-name');
+        const quantityInput = document.getElementById('quantity');
+        const clearBtn = document.getElementById('clear-canvas');
+        
+        const toolBtns = {
+            draw: document.getElementById('tool-draw'),
+            text: document.getElementById('tool-text'),
+            image: document.getElementById('tool-image')
+        };
+        const controlPanels = {
+            draw: document.getElementById('draw-controls'),
+            text: document.getElementById('text-controls'),
+            image: document.getElementById('image-controls')
+        };
+        
+        const colorPicker = document.getElementById('color-picker');
+        const brushSize = document.getElementById('brush-size');
+        const brushValue = document.getElementById('brush-size-value');
+        const textInput = document.getElementById('text-input');
+        const fontSelect = document.getElementById('font-family');
+        const textColorPicker = document.getElementById('text-color');
+        const addTextBtn = document.getElementById('add-text-btn');
+        const fileUpload = document.getElementById('file-upload');
+        
+        const addToCartBtn = document.getElementById('add-to-cart-btn');
+        const placeOrderBtn = document.getElementById('place-order-btn');
+        const modal = document.getElementById('confirmation-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMsg = document.getElementById('confirmation-message');
+        const okModalBtn = document.getElementById('ok-confirmation-modal');
+        const closeModalBtn = document.getElementById('close-confirmation-modal');
+        const modalIcon = document.getElementById('modal-icon');
+
+        const garmentImages = {
+            'T-shirt':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Oversized T-shirt':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Shirt':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Hoodie':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Jeans':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Kurta Set':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Saree':'https://placehold.co/500x500/ffffff/ffffff?text=+',
+            'Tote Bag':'https://placehold.co/500x500/ffffff/ffffff?text=+'
+        };
+        
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartBadge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        }
+
+        function setCanvasBackground(garment) {
+            fabric.Image.fromURL(garmentImages[garment], (img) => {
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height
+                });
+            }, { crossOrigin: 'anonymous' });
+            garmentName.textContent = garment;
+        }
+
+        function switchTool(tool) {
+            Object.values(toolBtns).forEach(btn => btn.classList.remove('active'));
+            Object.values(controlPanels).forEach(panel => panel.classList.add('hidden'));
+            
+            toolBtns[tool].classList.add('active');
+            controlPanels[tool].classList.remove('hidden');
+            
+            canvas.isDrawingMode = (tool === 'draw');
+            if (tool === 'draw') {
+                canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+                canvas.freeDrawingBrush.color = colorPicker.value;
+                canvas.freeDrawingBrush.width = parseInt(brushSize.value, 10);
+            }
+        }
+
+        garmentType.addEventListener('change', () => setCanvasBackground(garmentType.value));
+        
+        Object.keys(toolBtns).forEach(tool => {
+            toolBtns[tool].addEventListener('click', () => switchTool(tool));
+        });
+
+        colorPicker.addEventListener('input', () => { 
+            if(canvas.isDrawingMode) {
+                canvas.freeDrawingBrush.color = colorPicker.value;
+            }
+        });
+        
+        brushSize.addEventListener('input', () => {
+            const size = parseInt(brushSize.value, 10);
+            if(canvas.isDrawingMode) {
+                canvas.freeDrawingBrush.width = size;
+            }
+            brushValue.textContent = size;
+        });
+
+        addTextBtn.addEventListener('click', () => {
+            const text = new fabric.Textbox(textInput.value || 'Your Text', { left: 50, top: 100, fontFamily: fontSelect.value, fill: textColorPicker.value, fontSize: 40, width: 200 });
+            canvas.add(text);
+        });
+        
+        fileUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (f) => {
+                fabric.Image.fromURL(f.target.result, (img) => {
+                    img.scaleToWidth(150);
+                    canvas.add(img);
+                    canvas.centerObject(img);
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        clearBtn.addEventListener('click', () => {
+             canvas.getObjects().forEach(o => canvas.remove(o));
+        });
+        
+        function getFinalDesignAsProduct() {
+            const garment = garmentType.value;
+            const qty = parseInt(quantityInput.value);
+            if (!qty || qty < 1) {
+                openModal('Invalid Quantity', 'Please enter a valid quantity (1 or more).');
+                return null;
+            }
+            return {
+                id: `custom-${garment}-${Date.now()}`, name: `Custom ${garment}`, desc: 'Your unique design',
+                price: 1499, image: canvas.toDataURL({ format: 'png', multiplier: 2 }),
+                quantity: qty, isCustom: true
+            };
+        }
+
+        function handleAddToCart() {
+            const product = getFinalDesignAsProduct();
+            if(!product) return false;
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            return true;
+        }
+
+        addToCartBtn.addEventListener('click', () => {
+            if (handleAddToCart()) {
+                addToCartBtn.textContent = 'Added!';
+                setTimeout(() => { addToCartBtn.textContent = 'Add to Cart'; }, 2000);
+            }
+        });
+
+        // --- CORRECTED "PLACE ORDER" LOGIC ---
+        placeOrderBtn.addEventListener('click', () => {
+            const product = getFinalDesignAsProduct();
+            if (!product) return;
+            
+            // This function will be called ONLY when the OK button is clicked for this specific modal.
+            const proceedToShipping = () => {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                if (!cart.some(p => p.id === product.id)) {
+                    cart.push(product);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                localStorage.setItem('orderItems', JSON.stringify([product]));
+                updateCartBadge();
+                window.location.href = 'shipping.html';
+                
+                // IMPORTANT: Clean up the event listener after it has been used.
+                okModalBtn.removeEventListener('click', proceedToShipping);
+            };
+
+            openModal('Order Confirmed!', `Your custom ${product.name} is ready. Click OK to proceed to checkout.`);
+            
+            // Temporarily add a single-use event listener for this action.
+            okModalBtn.addEventListener('click', proceedToShipping, { once: true });
+        });
+
+        function openModal(title, msg) {
+            modalTitle.textContent = title;
+            modalMsg.textContent = msg;
+            const icon = document.createElement('i');
+            icon.setAttribute('data-feather', 'check-circle');
+            modalIcon.innerHTML = '';
+            modalIcon.appendChild(icon);
+            feather.replace();
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeModalFn() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+        
+        closeModalBtn.addEventListener('click', closeModalFn);
+        okModalBtn.addEventListener('click', (e) => {
+            // This general listener will only close the modal.
+            // The specific redirect logic is handled by the temporary listener added in placeOrderBtn.
+             if (modal.classList.contains('opacity-0') === false) {
+                 closeModalFn();
+             }
+        });
+
+        // Initial Setup
+        updateCartBadge();
+        setCanvasBackground(garmentType.value);
+        switchTool('draw');
+    });
+  </script>
+</body>
+</html>
+

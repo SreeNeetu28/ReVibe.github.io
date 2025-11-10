@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist - ReVibe</title>
+    <link rel="icon" type="image/x-icon" href="photo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: { 100: '#e8f5e9', 300: '#a5d6a7', 500: '#66bb6a', 700: '#43a047', 900: '#2e7d32' },
+                        earth: { 100: '#efebe9', 300: '#bcaaa4', 500: '#8d6e63', 700: '#6d4c41', 900: '#4e342e' },
+                        cream: '#fff8f0'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #f4f4f4; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="text-earth-900">
+    <!-- Navigation -->
+    <nav class="bg-cream shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index1.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+                </div>
+                <span class="font-bold text-xl text-sage-700">ReVibe</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index1.html" class="font-medium hover:text-sage-700 transition">HOME</a>
+                <a href="menstyle.html" class="font-medium hover:text-sage-700 transition">MEN</a>
+                <a href="womenstyle.html" class="font-medium hover:text-sage-700 transition">WOMEN</a>
+                <a href="studentstyle.html" class="font-medium hover:text-sage-700 transition">STUDENT</a>
+                <a href="kidstyle.html" class="font-medium hover:text-sage-700 transition">KIDS</a>
+                <a href="customize.html" class="font-medium hover:text-sage-700 transition">CUSTOMIZE</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="wishlist.html" class="p-2 rounded-full bg-sage-100 transition" aria-label="Wishlist"><i data-feather="heart" class="text-sage-700"></i></a>
+                <a href="cart.html" class="p-2 rounded-full hover:bg-sage-100 transition relative" aria-label="Cart">
+                    <i data-feather="shopping-cart"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                </a>
+                <a href="login.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Profile"><i data-feather="user"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Wishlist Section -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-sage-800">Your Wishlist</h1>
+            <p class="text-earth-700 mt-2">Your collection of saved sustainable favorites.</p>
+        </div>
+
+        <div id="wishlist-items-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Wishlist items will be dynamically inserted here -->
+        </div>
+
+        <!-- Empty Wishlist Message -->
+        <div id="empty-wishlist-message" class="hidden text-center py-16">
+            <i data-feather="heart" class="w-16 h-16 mx-auto text-sage-300"></i>
+            <h2 class="mt-4 text-2xl font-semibold text-earth-700">Your wishlist is empty</h2>
+            <p class="mt-2 text-earth-500">Click the heart icon on products to save them for later.</p>
+            <a href="index1.html" class="mt-6 inline-block bg-sage-700 text-white hover:bg-sage-800 px-6 py-3 rounded-full font-semibold transition">Start Shopping</a>
+        </div>
+    </main>
+
+    <script>
+        feather.replace();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const wishlistContainer = document.getElementById('wishlist-items-container');
+            const emptyMessage = document.getElementById('empty-wishlist-message');
+            const cartBadge = document.getElementById('cart-badge');
+
+            function updateCartBadge() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartBadge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            }
+
+            function loadWishlistItems() {
+                const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                wishlistContainer.innerHTML = ''; // Clear existing items
+
+                if (wishlist.length === 0) {
+                    emptyMessage.classList.remove('hidden');
+                    wishlistContainer.classList.add('hidden');
+                } else {
+                    emptyMessage.classList.add('hidden');
+                    wishlistContainer.classList.remove('hidden');
+                    wishlist.forEach(product => {
+                        const productCard = `
+                            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+                                <a href="productdetail.html?name=${encodeURIComponent(product.name)}&desc=${encodeURIComponent(product.desc)}&price=${product.price}&image=${encodeURIComponent(product.image)}">
+                                    <img class="w-full h-64 object-cover" src="${product.image}" alt="${product.name}">
+                                </a>
+                                <div class="p-4 flex flex-col flex-grow">
+                                    <h3 class="text-lg font-semibold">${product.name}</h3>
+                                    <p class="font-bold text-xl text-sage-700 my-2">₹${product.price}</p>
+                                    <div class="mt-auto space-y-2">
+                                        <button class="add-to-cart-btn w-full bg-sage-100 text-sage-800 hover:bg-sage-200 px-4 py-2 rounded-full font-semibold transition" data-product='${JSON.stringify(product)}'>Add to Cart</button>
+                                        <button class="remove-btn w-full text-red-500 hover:text-red-700 font-medium py-1" data-id="${product.id}">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        wishlistContainer.innerHTML += productCard;
+                    });
+                }
+            }
+            
+            wishlistContainer.addEventListener('click', (e) => {
+                const target = e.target;
+                
+                // Remove from wishlist
+                if (target.closest('.remove-btn')) {
+                    const productId = target.closest('.remove-btn').dataset.id;
+                    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                    wishlist = wishlist.filter(p => p.id !== productId);
+                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                    loadWishlistItems(); // Re-render the wishlist
+                }
+
+                // Add to cart
+                if (target.closest('.add-to-cart-btn')) {
+                    const button = target.closest('.add-to-cart-btn');
+                    const product = JSON.parse(button.dataset.product);
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existingProduct = cart.find(p => p.id === product.id);
+                    if (existingProduct) {
+                        existingProduct.quantity++;
+                    } else {
+                        cart.push({ ...product, quantity: 1 });
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartBadge();
+                    
+                    button.textContent = 'Added!';
+                    setTimeout(() => button.textContent = 'Add to Cart', 1500);
+                }
+            });
+
+            loadWishlistItems();
+            updateCartBadge();
+        });
+    </script>
+</body>
+</html>
+

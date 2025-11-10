@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ReVibe</title>
+    <link rel="icon" type="image/x-icon" href="photo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: { 100: '#e8f5e9', 300: '#a5d6a7', 500: '#66bb6a', 700: '#43a047', 900: '#2e7d32' },
+                        earth: { 100: '#efebe9', 300: '#bcaaa4', 500: '#8d6e63', 700: '#6d4c41', 900: '#4e342e' },
+                        cream: '#fff8f0'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #fff8f0; }
+        .wishlist-btn.active svg { fill: #43a047; /* sage-700 */ }
+        .size-btn.active {
+            background-color: #43a047; /* sage-700 */
+            color: white;
+            border-color: #43a047; /* sage-700 */
+        }
+    </style>
+</head>
+<body class="text-earth-900">
+    <!-- Navigation -->
+    <nav class="bg-cream shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index1.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+                </div>
+                <span class="font-bold text-xl text-sage-700">ReVibe</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index1.html" class="font-medium hover:text-sage-700 transition">HOME</a>
+                <a href="menstyle.html" class="font-medium hover:text-sage-700 transition">MEN</a>
+                <a href="womenstyle.html" class="font-medium hover:text-sage-700 transition">WOMEN</a>
+                <a href="studentstyle.html" class="font-medium hover:text-sage-700 transition">STUDENT</a>
+                <a href="kidstyle.html" class="font-medium hover:text-sage-700 transition">KIDS</a>
+                <a href="customize.html" class="font-medium hover:text-sage-700 transition">CUSTOMIZE</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="wishlist.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Wishlist"><i data-feather="heart"></i></a>
+                <a href="cart.html" class="p-2 rounded-full hover:bg-sage-100 transition relative" aria-label="Cart">
+                    <i data-feather="shopping-cart"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                </a>
+                <a href="login.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Profile"><i data-feather="user"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <!-- Product Image -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img id="product-image" src="" alt="Product Image" class="w-full h-auto object-cover rounded-md">
+            </div>
+
+            <!-- Product Info -->
+            <div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 id="product-name" class="text-4xl font-bold text-sage-900"></h1>
+                        <p id="product-desc" class="text-earth-600 mt-2 text-lg"></p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="wishlist-btn" class="wishlist-btn p-2 rounded-full hover:bg-sage-100 transition">
+                            <svg class="w-6 h-6 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.5l1.318-1.182a4.5 4.5 0 116.364 6.364L12 20.25l-7.682-7.682a4.5 4.5 0 010-6.364z"></path></svg>
+                        </button>
+                        <button id="share-btn" class="p-2 rounded-full hover:bg-sage-100 transition">
+                            <i data-feather="share-2" class="text-sage-700"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <span id="product-price" class="text-3xl font-bold text-sage-700"></span>
+                </div>
+
+                <!-- Size Selection -->
+                <div class="mt-8">
+                    <h3 class="text-sm font-medium text-earth-800">Select Size</h3>
+                    <div id="size-selector" class="mt-2 flex flex-wrap gap-2">
+                        <!-- Sizes are dynamically inserted here -->
+                    </div>
+                    <p id="size-error" class="text-red-500 text-sm mt-1 hidden">Please select a size.</p>
+                </div>
+
+                <div class="mt-8 space-y-4">
+                    <button id="add-to-cart-btn" class="w-full bg-sage-100 text-sage-800 hover:bg-sage-200 py-3 rounded-full font-semibold transition text-lg">Add to Cart</button>
+                    <button id="buy-now-btn" class="w-full text-center bg-sage-700 text-white hover:bg-sage-800 py-3 rounded-full font-semibold transition text-lg">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        feather.replace();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const category = params.get('category');
+
+            let product = {
+                name: params.get('name') || 'Product Name',
+                desc: params.get('desc') || 'Product Description',
+                price: parseFloat(params.get('price')) || 0,
+                image: params.get('image') || 'https://placehold.co/600x600/e8f5e9/2e7d32?text=ReVibe',
+                size: null 
+            };
+            product.id = `${product.name}-${product.price}`;
+
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-desc').textContent = product.desc;
+            document.getElementById('product-price').textContent = `₹${product.price}`;
+            document.getElementById('product-image').src = product.image;
+            document.getElementById('product-image').alt = product.name;
+            
+            const cartBadge = document.getElementById('cart-badge');
+            const wishlistBtn = document.getElementById('wishlist-btn');
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const buyNowBtn = document.getElementById('buy-now-btn');
+            const sizeSelector = document.getElementById('size-selector');
+            const sizeError = document.getElementById('size-error');
+
+            // --- Dynamic Size Generation ---
+            const adultSizes = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+            const kidsSizes = ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y'];
+            const sizesToDisplay = (category === 'kids') ? kidsSizes : adultSizes;
+            
+            sizeSelector.innerHTML = ''; // Clear static buttons
+            sizesToDisplay.forEach(size => {
+                const button = document.createElement('button');
+                button.className = 'size-btn px-4 py-2 border rounded-full text-sm font-semibold hover:bg-sage-100 transition';
+                button.textContent = size;
+                sizeSelector.appendChild(button);
+            });
+
+            sizeSelector.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    sizeSelector.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    product.size = e.target.textContent;
+                    sizeError.classList.add('hidden'); // Hide error on selection
+                }
+            });
+
+            function updateCartBadge() { /* ... unchanged ... */ }
+            function checkWishlistStatus() { /* ... unchanged ... */ }
+            wishlistBtn.addEventListener('click', () => { /* ... unchanged ... */ });
+            
+            function addItemToCart() {
+                if (!product.size) {
+                    sizeError.classList.remove('hidden'); // Show error message
+                    return false;
+                }
+                
+                const cartItemId = `${product.id}-${product.size}`;
+                
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.id === cartItemId);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ 
+                        ...product, 
+                        id: cartItemId,
+                        desc: `${product.desc} - Size: ${product.size}`,
+                        quantity: 1 
+                    });
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartBadge();
+                return true;
+            }
+
+            addToCartBtn.addEventListener('click', () => {
+                if (addItemToCart()) {
+                    addToCartBtn.textContent = 'Added!';
+                    setTimeout(() => { addToCartBtn.textContent = 'Add to Cart'; }, 2000);
+                }
+            });
+            
+            buyNowBtn.addEventListener('click', () => {
+                if (addItemToCart()) {
+                    window.location.href = 'shipping.html';
+                }
+            });
+
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.addEventListener('click', async () => { /* ... share logic ... */ });
+
+            // --- Unchanged Functions ---
+            function updateCartBadge() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartBadge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            }
+            function checkWishlistStatus() {
+                const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                if (wishlist.some(item => item.id === product.id)) {
+                    wishlistBtn.classList.add('active');
+                } else {
+                    wishlistBtn.classList.remove('active');
+                }
+            }
+             wishlistBtn.addEventListener('click', () => {
+                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                const itemIndex = wishlist.findIndex(item => item.id === product.id);
+                if (itemIndex > -1) {
+                    wishlist.splice(itemIndex, 1);
+                    wishlistBtn.classList.remove('active');
+                } else {
+                    const { size, ...wishlistProduct } = product;
+                    wishlist.push(wishlistProduct);
+                    wishlistBtn.classList.add('active');
+                }
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            });
+             shareBtn.addEventListener('click', async () => {
+                try {
+                    if (navigator.share) {
+                        await navigator.share({
+                            title: `Check out the ${product.name} on ReVibe!`,
+                            text: `I found this awesome sustainable product: ${product.name}`,
+                            url: window.location.href
+                        });
+                    } else {
+                        navigator.clipboard.writeText(window.location.href)
+                            .then(() => alert('Link copied to clipboard!'))
+                            .catch(err => console.error('Failed to copy link:', err));
+                    }
+                } catch (err) {
+                    console.error('Error sharing:', err);
+                }
+            });
+
+
+            updateCartBadge();
+            checkWishlistStatus();
+        });
+    </script>
+</body>
+</html>

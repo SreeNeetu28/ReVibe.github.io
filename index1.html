@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReVibe - Sustainable Fashion</title>
+    <link rel="icon" type="image/x-icon" href="photo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            100: '#e8f5e9',
+                            300: '#a5d6a7',
+                            500: '#66bb6a',
+                            700: '#43a047',
+                            900: '#2e7d32',
+                        },
+                        earth: {
+                            100: '#efebe9',
+                            300: '#bcaaa4',
+                            500: '#8d6e63',
+                            700: '#6d4c41',
+                            900: '#4e342e',
+                        },
+                        cream: '#fff8f0'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        html {
+            scroll-behavior: smooth; /* Adds smooth scrolling effect */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff8f0;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(255, 248, 240, 0.9), rgba(255, 248, 240, 0.9)), 
+                        url('http://static.photos/nature/1200x630/42');
+            background-size: cover;
+            background-position: center;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-earth-900">
+    <nav class="bg-cream shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index1.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+                </div>
+                <span class="font-bold text-xl text-sage-700">ReVibe</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="index1.html" class="font-medium hover:text-sage-700 transition">HOME</a>
+                <a href="menstyle.html" class="font-medium hover:text-sage-700 transition">MEN</a>
+                <a href="womenstyle.html" class="font-medium hover:text-sage-700 transition">WOMEN</a>
+                <a href="studentstyle.html" class="font-medium hover:text-sage-700 transition">STUDENT</a>
+                <a href="kidstyle.html" class="font-medium hover:text-sage-700 transition">KIDS</a>
+                <a href="customize.html" class="font-medium hover:text-sage-700 transition">CUSTOMIZE</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="wishlist.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Wishlist">
+                    <i data-feather="heart"></i>
+                </a>
+                <a href="cart.html" class="p-2 rounded-full hover:bg-sage-100 transition relative" aria-label="Cart">
+                    <i data-feather="shopping-cart"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                </a>
+                <div class="relative group">
+                    <a href="login.html" class="p-2 rounded-full hover:bg-sage-100 transition" aria-label="Profile">
+                        <i data-feather="user"></i>
+                    </a>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                        <a href="login.html" class="block px-4 py-2 text-sm hover:bg-sage-100">Login</a>
+                        <a href="registration.html" class="block px-4 py-2 text-sm hover:bg-sage-100">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-bg py-20 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-sage-900">Your Style,<br>Sustainably <span class="text-sage-500">ReVibed</span></h1>
+                <p class="text-lg mb-8">Custom clothing that loves the planet as much as you do. Designed by you, crafted sustainably.</p>
+                <div class="flex space-x-4">
+                    <a href="customize.html" class="bg-sage-500 hover:bg-sage-600 text-white px-6 py-3 rounded-full font-medium transition">Customize Now</a>
+                    <a href="#shop-by-category" class="border border-sage-500 text-sage-700 hover:bg-sage-50 px-6 py-3 rounded-full font-medium transition">Shop Collection</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="photo2.jpg" alt="Sustainable fashion" class="rounded-lg shadow-xl max-w-full h-auto">
+            </div>
+        </div>
+    </section>
+
+    <section id="shop-by-category" class="py-16 px-4 bg-cream">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Shop By Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="studentstyle.html" class="relative group h-64 rounded-xl overflow-hidden shadow-md block">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110" style="background-image: url('Images/Studentsec.jpg');"></div>
+                    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center">
+                        <h3 class="text-white text-2xl font-bold">Student</h3>
+                    </div>
+                </a>
+                <a href="menstyle.html" class="relative group h-64 rounded-xl overflow-hidden shadow-md block">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110" style="background-image: url('Images/Mensec.jpg');"></div>
+                    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center">
+                        <h3 class="text-white text-2xl font-bold">Men</h3>
+                    </div>
+                </a>
+                <a href="womenstyle.html" class="relative group h-64 rounded-xl overflow-hidden shadow-md block">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110" style="background-image: url('Images/Womensec.jpg');"></div>
+                    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center">
+                        <h3 class="text-white text-2xl font-bold">Women</h3>
+                    </div>
+                </a>
+                <a href="kidstyle.html" class="relative group h-64 rounded-xl overflow-hidden shadow-md block">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110" style="background-image: url('Images/kidsec.jpg');"></div>
+                    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                    <div class="relative h-full flex items-center justify-center">
+                        <h3 class="text-white text-2xl font-bold">Kids</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Our Sustainable Collection</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <a href="productdetail.html?name=ReVibe%20Logo%20Shirt&desc=Organic%20Cotton&price=899&image=index-pics/i2.jpg" class="product-card block bg-cream rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative">
+                        <img src="index-pics/i2.jpg" alt="ReVibe Logo T-shirt" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-sage-500 text-white text-xs px-2 py-1 rounded">Sustainable</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">ReVibe Logo Shirt</h3>
+                        <p class="text-sm text-earth-500 mb-2">Organic Cotton</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sage-700">₹899</span>
+                            <div class="text-sage-500 hover:text-sage-700"><i data-feather="arrow-right-circle"></i></div>
+                        </div>
+                    </div>
+                </a>
+                <a href="productdetail.html?name=Tote%20Bag&desc=Recycled%20Materials&price=1299&image=index-pics/i1.jpg" class="product-card block bg-cream rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative">
+                        <img src="index-pics/i1.jpg" alt="ToteBag" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-sage-500 text-white text-xs px-2 py-1 rounded">Recycled</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Tote Bag</h3>
+                        <p class="text-sm text-earth-500 mb-2">Recycled Materials</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sage-700">₹1,299</span>
+                            <div class="text-sage-500 hover:text-sage-700"><i data-feather="arrow-right-circle"></i></div>
+                        </div>
+                    </div>
+                </a>
+                <a href="productdetail.html?name=Eco%20Hoodie&desc=Plant-based%20Materials&price=499&image=index-pics/i3.jpg" class="product-card block bg-cream rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative">
+                        <img src="index-pics/i3.jpg" alt="Eco Hoodie" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-sage-500 text-white text-xs px-2 py-1 rounded">Vegan</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Eco Hoodie</h3>
+                        <p class="text-sm text-earth-500 mb-2">Plant-based Materials</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sage-700">₹499</span>
+                            <div class="text-sage-500 hover:text-sage-700"><i data-feather="arrow-right-circle"></i></div>
+                        </div>
+                    </div>
+                </a>
+                <a href="productdetail.html?name=ReVibe%20Logo%20Shirt&desc=Organic%20Cotton&price=899&image=index-pics/i4.jpg" class="product-card block bg-cream rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative">
+                        <img src="index-pics/i4.jpg" alt="Sustainable shirt" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-sage-500 text-white text-xs px-2 py-1 rounded">Organic</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">ReVibe Logo Shirt</h3>
+                        <p class="text-sm text-earth-500 mb-2">Organic Cotton</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sage-700">₹899</span>
+                            <div class="text-sage-500 hover:text-sage-700"><i data-feather="arrow-right-circle"></i></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-10">
+                <a href="#" class="inline-block border border-sage-500 text-sage-700 hover:bg-sage-50 px-6 py-3 rounded-full font-medium transition">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 bg-sage-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Our Sustainable Process</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-20 h-20 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-feather="check-circle" class="text-sage-700 w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">1. Choose Your Garment</h3>
+                    <p class="text-earth-600">Select from our range of sustainable base garments crafted from organic and recycled materials.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-20 h-20 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-feather="edit" class="text-sage-700 w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">2. Unleash Your Creativity</h3>
+                    <p class="text-earth-600">Design your unique style using our eco-friendly dyes and digital tools.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-20 h-20 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-feather="truck" class="text-sage-700 w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">3. Wear Your Sustainable Style</h3>
+                    <p class="text-earth-600">Receive your custom creation packaged in biodegradable materials, shipped carbon-neutral.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="bg-sage-900 text-white py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-sage-100 rounded-full">
+                            <img class="h-full w-full object-cover" src="photo.jpg" alt="A profile picture">
+                        </div>
+                        <span class="font-bold text-xl">ReVibe</span>
+                    </div>
+                    <p class="text-sage-300 text-sm">Sustainable fashion that respects the planet and celebrates your unique style.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-sage-300">
+                        <li><i data-feather="mail" class="inline mr-2 w-4 h-4"></i> revibesustainablefashion@gmail.com</li>
+                        <li><i data-feather="phone" class="inline mr-2 w-4 h-4"></i> +919347339942</li>
+                        <li><a href="https://www.instagram.com/re_vibefashion" class="hover:text-sage-100 transition"><i data-feather="instagram" class="inline mr-2 w-4 h-4"></i> ReVibeFashion</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sage-300">
+                        <li><a href="#" class="hover:text-sage-100 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-sage-100 transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-sage-100 transition">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-sage-100 transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Newsletter</h3>
+                    <p class="text-sage-300 text-sm mb-2">Subscribe for sustainable style tips and exclusive offers.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="px-3 py-2 rounded-l text-earth-900 w-full focus:outline-none">
+                        <button class="bg-sage-600 hover:bg-sage-700 px-4 py-2 rounded-r transition">
+                            <i data-feather="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-sage-700 mt-8 pt-6 text-center text-sage-400 text-sm">
+                <p>© 2025 ReVibe Sustainable Fashion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart badge on page load
+            const cartBadge = document.getElementById('cart-badge');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartBadge.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+        });
+    </script>
+</body>
+</html>
